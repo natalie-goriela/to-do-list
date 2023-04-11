@@ -51,7 +51,7 @@ class TaskDeleteView(generic.DeleteView):
 
 
 class ChangeTaskStatusView(View):
-    def get(self, request, pk):
+    def post(self, request, pk):
         task = Task.objects.get(id=pk)
         task.is_done = not task.is_done
         task.save()
