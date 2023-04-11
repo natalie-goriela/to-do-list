@@ -7,7 +7,7 @@ from task_manager.views import (
     TagUpdateView,
     TagDeleteView,
     TaskCreateView,
-    do_undo_task,
+    ChangeTaskStatusView,
     TaskUpdateView,
     TaskDeleteView
 )
@@ -19,7 +19,7 @@ urlpatterns = [
     path("tags/<int:pk>/update/", TagUpdateView.as_view(), name="tag-update"),
     path("tags/<int:pk>/delete/", TagDeleteView.as_view(), name="tag-delete"),
     path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
-    path("tasks/<int:pk>/do-undo/", do_undo_task, name="do-undo-task"),
+    path("tasks/<int:pk>/do-undo/", ChangeTaskStatusView.as_view(), name="do-undo-task"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
 ]

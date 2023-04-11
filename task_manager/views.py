@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import generic, View
 
 from task_manager.forms import TaskForm
 from task_manager.models import Task, Tag
@@ -49,11 +50,10 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy("task_manager:index")
 
 
-def do_undo_task(request, pk):
-    current_task = Task.objects.get(id=pk)
-    if current_task.is_done:
-        current_task.is_done = False
-    else:
-        current_task.is_done = True
-    current_task.save()
-    return HttpResponseRedirect(reverse_lazy("task_manager:index"))
+class ChangeTaskStatusView(View):
+    def get(self, request, pk):
+        task = Task.objects.get(id=pk)
+        task.is_done = not task.is_done
+        task.save()
+
+        return redirect("task_manager:index")
