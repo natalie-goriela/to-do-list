@@ -24,3 +24,5 @@ and install requirements in it, but if not:
     source venv/bin/activate (on macOS)
     pip install -r requirements.txt
    
+The secret key to this project is saved within .env file, which is hidden.
+You can create your own .env file to store your secret key like it is shown in .env_sample file. 
