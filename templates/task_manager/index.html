@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>
+    TODO List
+    <a href="{% url 'task_manager:task-create' %}" class="btn btn-primary link-to-page">Add task</a>
+  </h1>
+
+  {% for task in task_list %}
+
+    {% if task_list %}
+
+      <ul class="tasks list-group">
+        <li class="task">
+          <strong>{{ task.content }}</strong>
+          {% if not task.is_done %}
+            <span class="not-done-task">Not done</span>
+            <a href="{% url 'task_manager:do-undo-task' pk=task.pk %}" class="btn btn-success link-to-page">
+              Complete
+            </a>
+          {% else %}
+            <span class="done-task">Done</span>
+            <a href="{% url 'task_manager:do-undo-task' pk=task.pk %}" class="btn btn-secondary link-to-page">
+              Undo
+            </a>
+          {% endif %}
+        </li>
+        <li class="task created-at">
+          <span>Created at: {{ task.datetime }} </span>
+          <span class="deadline">{% if task.deadline %}Deadline: {{ task.deadline }}{% endif %}</span>
+        </li>
+        <li class="task">
+          <span class="task-tags">Tags: {% for tag in task.tags.all %}{{ tag.name }} {% endfor %}</span>
+          <a href="{% url 'task_manager:task-update' pk=task.id %}">Update</a>
+          <a href="{% url 'task_manager:task-delete' pk=task.id %}">Delete</a>
+        </li>
+      </ul>
+
+    {% else %}
+      <p>No tasks to do</p>
+    {% endif %}
+
+    <br>
+
+  {% endfor %}
+
+{% endblock %}
