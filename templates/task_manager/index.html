@@ -15,15 +15,15 @@
         <li class="task">
           <strong>{{ task.content }}</strong>
           {% if not task.is_done %}
-            <span class="not-done-task">Not done</span>
-            <a href="{% url 'task_manager:do-undo-task' pk=task.pk %}" class="btn btn-success link-to-page">
-              Complete
-            </a>
+            <form action="{% url 'task_manager:do-undo-task' pk=task.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-success link-to-page">Complete</button>
+            </form>
           {% else %}
-            <span class="done-task">Done</span>
-            <a href="{% url 'task_manager:do-undo-task' pk=task.pk %}" class="btn btn-secondary link-to-page">
-              Undo
-            </a>
+            <form action="{% url 'task_manager:do-undo-task' pk=task.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-secondary link-to-page">Done</button>
+            </form>
           {% endif %}
         </li>
         <li class="task created-at">
